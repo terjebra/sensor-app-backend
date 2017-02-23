@@ -10,11 +10,11 @@ defmodule SensorApi.HeartRateView do
   end
 
   def render("heart_rate.json", %{heart_rate: heart_rate}) do
-    %{id: heart_rate.id,
+    %{
+      id: heart_rate.id,
       device_id: heart_rate.device_id,
       beat: heart_rate.beat,
-      time: Ecto.DateTime.to_time(heart_rate.date),
-      date: Ecto.DateTime.to_date(heart_rate.date)
+      date: heart_rate.date
     }
   end
 end

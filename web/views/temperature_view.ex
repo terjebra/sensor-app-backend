@@ -10,8 +10,8 @@ defmodule SensorApi.TemperatureView do
 
   def render("temperature.json", %{temperature: temperature}) do
     %{id: temperature.id,
-      reading: String.to_float(temperature.reading),
-      date: temperature.date
+        reading: String.to_float(temperature.reading),
+        date: temperature.date
       }
   end
 end

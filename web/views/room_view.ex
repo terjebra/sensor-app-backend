@@ -12,7 +12,6 @@ defmodule SensorApi.RoomView do
 
   def render("room.json", %{room: room}) do
     %{id: room.id,
-      id: room.id,
       name: room.name}
   end
 end

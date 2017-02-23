@@ -4,6 +4,8 @@ Experimenting with Elixir
 
 When a new temperature reading is registered through the API, a push notification is sent the frontend
 
+![Build Status](https://travis-ci.org/terjebra/sensor-app-backend.svg?branch=master)
+
 ## Backend
 
 # API   

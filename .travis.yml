@@ -5,7 +5,5 @@ otp_release:
   - 19.2
 addons:
   postgresql: '9.4'
-env:
-  - MIX_ENV=travis
 before_script:
-  - mix do ecto.create, ecto.migrate
+  - MIX_ENV=travis mix do deps.get, deps.compile, ecto.create, ecto.migrate

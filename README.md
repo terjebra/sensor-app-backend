@@ -2,21 +2,19 @@
 
 Experimenting with Elixir
 
-When a new temperature reading is registered through the API , a push notification is sent the frontend
+When a new temperature reading is registered through the API, a push notification is sent the frontend
 
 ## Backend
 
-### Docker
+# API   
+* GET and POST
+  * http://localhost:4000/temperatures
+# Docker
 * cd elixir/Docker
 * docker-compose build
 * docker-compose up
 
-### Elixir
- * mix ecto.create
- * mix ecto.migrate
- * mix phoenix.server
-
-### Usage
-* Backend
-  * GET and POST
-  * http://localhost:4000/temperatures
+# Usage
+* mix ecto.create
+* mix ecto.migrate
+* mix phoenix.server

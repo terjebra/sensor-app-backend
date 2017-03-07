@@ -20,7 +20,7 @@ defmodule SensorApi.TemperatureControllerTest do
     assert json_response(conn, 200) == %{"id" => temperature.id,
       "id" => temperature.id,
       "reading" => String.to_float(temperature.reading),
-      "date" => Ecto.DateTime.to_iso8601(temperature.date)
+      "date" => Ecto.DateTime.to_string(temperature.date)
     }
   end
 

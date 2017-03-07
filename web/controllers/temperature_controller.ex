@@ -3,11 +3,27 @@ defmodule SensorApi.TemperatureController do
 
   alias SensorApi.Temperature
 
-  def index(conn, _params) do
-    temperatures = Repo.all(Temperature)
+  def index(conn,  %{"date" => date}) do
+    startDate = Ecto.Date.cast!(date)
+    startDateTime = Ecto.DateTime.from_date startDate
+    endTime =  Ecto.Time.cast!({23,59,59})
+    endDateTime = Ecto.DateTime.from_date_and_time(startDate, endTime)
+
+    query = from t in Temperature,
+            where: t.date >= ^startDateTime,
+            where: t.date <= ^endDateTime,
+            order_by: t.date
+
+
+    temperatures = Repo.all query
     render(conn, "index.json", temperatures: temperatures)
   end
 
+  def index(conn, _params) do
+    temperatures = Repo.all Temperature
+    render(conn, "index.json", temperatures: temperatures)
+  end
+  
   def create(conn, temperature_params) do
     changeset = Temperature.changeset(%Temperature{}, temperature_params)
 

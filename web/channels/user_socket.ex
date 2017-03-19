@@ -5,7 +5,7 @@ defmodule SensorApi.UserSocket do
   channel "temperature", SensorApi.TemperatureChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket, timeout: :infinity
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can

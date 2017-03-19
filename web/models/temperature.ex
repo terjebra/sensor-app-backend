@@ -3,7 +3,7 @@ defmodule SensorApi.Temperature do
 
   schema "temperatures" do
     field :reading, :string
-    field :date, Ecto.DateTime
+    field :date, Timex.Ecto.DateTime
     belongs_to :room, SensorApi.Room
 
     timestamps()

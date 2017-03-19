@@ -1,9 +1,10 @@
 defmodule SensorApi.TemperatureControllerTest do
   use SensorApi.ConnCase
+  use Timex
 
   alias SensorApi.Temperature
-  @valid_attrs %{date: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, reading: "36.1"}
-  @invalid_attrs %{}
+  @valid_attrs %{date: Timex.parse!("2015-06-24T04:50:34Z", "{ISO:Extended:Z}"), reading: "36.1"}
+  @invalid_attrs %{reading: 0}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -15,12 +16,13 @@ defmodule SensorApi.TemperatureControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    temperature = Repo.insert! %Temperature{"date": Ecto.DateTime.utc, reading: "36.1"}
+    date = "2015-06-24T04:50:34Z"
+    temperature = Repo.insert! %Temperature{"date": Timex.parse!(date, "{ISO:Extended:Z}"), reading: "36.1"}
     conn = get conn, temperature_path(conn, :show, temperature)
     assert json_response(conn, 200) == %{"id" => temperature.id,
       "id" => temperature.id,
       "reading" => String.to_float(temperature.reading),
-      "date" => Ecto.DateTime.to_string(temperature.date)
+      "date" => date
     }
   end
 
@@ -42,14 +44,16 @@ defmodule SensorApi.TemperatureControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    temperature = Repo.insert! %Temperature{}
+    date = "2015-06-24T04:50:34Z"
+    temperature =  Repo.insert! %Temperature{"date": Timex.parse!(date, "{ISO:Extended:Z}"), reading: "36.1"}
     conn = put conn, temperature_path(conn, :update, temperature),  @valid_attrs
     assert json_response(conn, 200)["id"]
     assert Repo.get_by(Temperature, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    temperature = Repo.insert! %Temperature{}
+    date = "2015-06-24T04:50:34Z"
+    temperature =  Repo.insert! %Temperature{"date": Timex.parse!(date, "{ISO:Extended:Z}"), reading: "36.1"}
     conn = put conn, temperature_path(conn, :update, temperature), @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
